@@ -1,8 +1,12 @@
 using LibraryAPI.BLL.ExceptionHandlers;
 using LibraryAPI.BLL.Mapping;
 using LibraryAPI.DAL.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 namespace LibraryAPI
 {
@@ -11,6 +15,23 @@ namespace LibraryAPI
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
+			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddJwtBearer(options =>
+				{
+					var secretKey = builder.Configuration["JwtParameters:Key"];
+					var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						ValidateIssuer = true,
+						ValidIssuer = builder.Configuration["JwtParameters:Issuer"],
+						ValidateAudience = true,
+						ValidAudience = builder.Configuration["JwtParameters:Audience"],
+						ValidateLifetime = true,
+						IssuerSigningKey =  SecurityKey,
+						ValidateIssuerSigningKey = true
+					};
+				});
+
 			builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 			builder.Services.AddDbContext<BookDBContext>(options
 				=> options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
@@ -20,15 +41,40 @@ namespace LibraryAPI
 			builder.Services.AddScoped<IBookRepository, BookRepository>();
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+			builder.Services.AddSwaggerGen(options => {
+				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+				{
+					Scheme = "Bearer",
+					BearerFormat = "JWT",
+					In = ParameterLocation.Header,
+					Name = "Authorization",
+					Description = "Authentication via bearer token",
+					Type = SecuritySchemeType.Http
+				});
+				options.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						new OpenApiSecurityScheme
+						{
+							Reference = new OpenApiReference
+							{
+								Id = "Bearer",
+								Type = ReferenceType.SecurityScheme
+							}
+						}, 
+						new List<string> { }
+					}
+				});
+			});
 
 			var app = builder.Build();
 			app.UseSwagger();
 			app.UseSwaggerUI();
-			app.UseExceptionHandler(opt => { });
 			app.UseHttpsRedirection();
+			app.UseAuthentication();
 			app.UseAuthorization();
 			app.MapControllers();
+			app.UseExceptionHandler(opt => { });
 
 			app.Run();
 		}

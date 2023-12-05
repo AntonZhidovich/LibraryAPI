@@ -7,13 +7,13 @@ using MediatR;
 
 namespace LibraryAPI.BLL.Handlers
 {
-	public class CreateBookHandler : IRequestHandler<CreateBookCommand, int>
+	public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, int>
 	{
 
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public CreateBookHandler(IBookRepository bookRepository, IMapper mapper)
+		public CreateBookCommandHandler(IBookRepository bookRepository, IMapper mapper)
 		{
 			_bookRepository = bookRepository;
 			_mapper = mapper;

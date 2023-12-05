@@ -1,9 +1,10 @@
-﻿using LibraryAuthApi.DAL.Models;
+﻿using LibraryAuthApi.BLL.Models;
+using LibraryAuthApi.DAL.Models;
 
 namespace LibraryAuthApi.DAL.Services
 {
 	public interface ITokenBuilder
 	{
-		string BuildToken(UserLoginDTO user);
+		string BuildToken(User user);
 	}
 }

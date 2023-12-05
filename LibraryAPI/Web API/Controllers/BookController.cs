@@ -2,6 +2,7 @@
 using LibraryAPI.BLL.Models;
 using LibraryAPI.BLL.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Web_API.Controllers
@@ -17,6 +18,7 @@ namespace LibraryAPI.Web_API.Controllers
 			_mediator = mediator;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(IEnumerable<GetBookDTO>))]
         public async Task<IActionResult> GetBooks()
@@ -26,6 +28,7 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(books);
 		}
 
+		[AllowAnonymous]
 		[HttpGet("{id}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
 		public async Task<IActionResult> GetBook(int id)
@@ -35,6 +38,7 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(book);
 		}
 
+		[AllowAnonymous]
 		[HttpGet("/isbn/{isbn}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
 		public async Task<IActionResult> GetBook(string isbn)
@@ -44,6 +48,7 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(book);
 		}
 
+		[Authorize]
 		[HttpPost]
 		[ProducesResponseType(200, Type = typeof(int))]
 		public async Task<IActionResult> CreateBook(CreateBookDTO book)
@@ -52,6 +57,7 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(await _mediator.Send(command));
 		}
 
+		[Authorize]
 		[HttpPut("{id}")]
 		[ProducesResponseType(200, Type = typeof(bool))]
 		public async Task<IActionResult> UpdateBook(int id, UpdateBookDTO updateBook)
@@ -60,6 +66,7 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(await _mediator.Send(command));
 		}
 
+		[Authorize]
 		[HttpDelete("{id}")]
 		[ProducesResponseType(200, Type = typeof(bool))]
 		public async Task<IActionResult> DeleteBook(int id)

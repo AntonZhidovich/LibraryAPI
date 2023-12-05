@@ -8,12 +8,12 @@ using Microsoft.Identity.Client;
 
 namespace LibraryAPI.BLL.Handlers
 {
-	public class GetBooksRequestHandler : IRequestHandler<GetBooksQuery, IEnumerable<GetBookDTO>>
+	public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, IEnumerable<GetBookDTO>>
 	{
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public GetBooksRequestHandler(IBookRepository bookRepository, IMapper mapper)
+		public GetBooksQueryHandler(IBookRepository bookRepository, IMapper mapper)
         {
 			_bookRepository = bookRepository;
 			_mapper = mapper;

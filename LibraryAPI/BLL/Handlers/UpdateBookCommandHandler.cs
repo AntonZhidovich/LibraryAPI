@@ -4,16 +4,17 @@ using LibraryAPI.BLL.Models;
 using LibraryAPI.DAL.Models;
 using LibraryAPI.DAL.Repository;
 using MediatR;
+using Microsoft.Identity.Client;
 
 namespace LibraryAPI.BLL.Handlers
 {
-	public class UpdateBookHandler : IRequestHandler<UpdateBookCommand, bool>
+	public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, bool>
 	{
 
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public UpdateBookHandler(IBookRepository bookRepository, IMapper mapper)
+		public UpdateBookCommandHandler(IBookRepository bookRepository, IMapper mapper)
 		{
 			_bookRepository = bookRepository;
 			_mapper = mapper;

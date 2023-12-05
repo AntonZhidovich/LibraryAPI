@@ -7,27 +7,27 @@ using MediatR;
 
 namespace LibraryAPI.BLL.Handlers
 {
-	public class GetBookByIdHandler : IRequestHandler<GetBookByIdQuery, GetBookDTO>
+	public class GetBookByIsbnQueryHandler : IRequestHandler<GetBookByIsbnQuery, GetBookDTO>
 	{
 
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public GetBookByIdHandler(IBookRepository bookRepository, IMapper mapper)
+		public GetBookByIsbnQueryHandler(IBookRepository bookRepository, IMapper mapper)
 		{
 			_bookRepository = bookRepository;
 			_mapper = mapper;
 		}
 
-		public async Task<GetBookDTO> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
+		public async Task<GetBookDTO> Handle(GetBookByIsbnQuery request, CancellationToken cancellationToken)
 		{
-			Book? book = await _bookRepository.GetBook(request.Id);
+			Book? book = await _bookRepository.GetBook(request.ISBN);
 			if (book != null)
 			{
 				return _mapper.Map<Book, GetBookDTO>(book);
 			}
 
-			throw new ArgumentException("Book with such ID not found.");
+			throw new ArgumentException("Book with such ISBN not found.");
 		}
 	}
 }

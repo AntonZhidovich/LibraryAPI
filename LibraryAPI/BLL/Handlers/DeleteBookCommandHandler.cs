@@ -6,12 +6,12 @@ using MediatR;
 
 namespace LibraryAPI.BLL.Handlers
 {
-	public class DeleteBookHandler : IRequestHandler<DeleteBookCommand, bool>
+	public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, bool>
 	{
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public DeleteBookHandler(IBookRepository bookRepository, IMapper mapper)
+		public DeleteBookCommandHandler(IBookRepository bookRepository, IMapper mapper)
 		{
 			_bookRepository = bookRepository;
 			_mapper = mapper;

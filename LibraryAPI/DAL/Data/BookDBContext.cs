@@ -19,7 +19,6 @@ namespace LibraryAPI.DAL.Repository
 		}
 	}
 
-
 	public class BookConfiguration : IEntityTypeConfiguration<Book>
 	{
 		public void Configure(EntityTypeBuilder<Book> builder)
