@@ -4,7 +4,6 @@ using LibraryAPI.BLL.Queries;
 using LibraryAPI.DAL.Models;
 using LibraryAPI.DAL.Repository;
 using MediatR;
-using Microsoft.Identity.Client;
 
 namespace LibraryAPI.BLL.Handlers
 {

@@ -1,8 +1,11 @@
+
 dotnet build
 
+dotnet dev-certs https --trust
+
 cd LibraryAuthApi
-start cmd.exe /k dotnet run --launch-profile https
+start cmd.exe /k dotnet run --launch-profile https --trust
 
 cd ..
 cd LibraryAPI
-start cmd.exe /k dotnet run --launch-profile https | start https://localhost:7162/swagger
+start cmd.exe /k dotnet run --launch-profile https --trust | start https://localhost:7162/swagger
