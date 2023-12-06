@@ -38,7 +38,16 @@ namespace LibraryAPI.BLL.Handlers
 
 			Book book = _mapper.Map<UpdateBookDTO, Book>(request.BookDTO);
 			book.Id = request.Id;
-			await _bookRepository.UpdateBook(book);
+			try
+			{
+				await _bookRepository.UpdateBook(book);
+			}
+			catch
+			{
+				_logger.LogError("Unable to update a book with ID {id}.", request.Id);
+				throw new ArgumentException("Book with such ID not found.");
+			}
+
 			return true;
 		}
 	}

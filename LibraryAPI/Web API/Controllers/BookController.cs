@@ -21,7 +21,7 @@ namespace LibraryAPI.Web_API.Controllers
 		/// <summary>
 		/// Get all books
 		/// </summary>
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(IEnumerable<GetBookDTO>))]
         public async Task<IActionResult> GetBooks()
@@ -34,7 +34,7 @@ namespace LibraryAPI.Web_API.Controllers
 		/// <summary>
 		/// Get a book with a given ID
 		/// </summary>
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("{id}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
 		public async Task<IActionResult> GetBook(int id)
@@ -47,7 +47,7 @@ namespace LibraryAPI.Web_API.Controllers
 		/// <summary>
 		/// Get a book with a given ISBN code
 		/// </summary>
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("isbn/{isbn}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
 		public async Task<IActionResult> GetBook(string isbn)

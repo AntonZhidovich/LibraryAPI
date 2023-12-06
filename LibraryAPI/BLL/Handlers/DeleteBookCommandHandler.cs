@@ -25,10 +25,10 @@ namespace LibraryAPI.BLL.Handlers
 			Book? book = await _bookRepository.GetBook(request.Id);
 			if (book == null)
 			{
+				_logger.LogError("Unable to delete a book with ID {id}.", request.Id);
 				throw new ArgumentNullException(nameof(request), "The book with such ID was not found");
 			}
 
-			_logger.LogError("Unable to delete a book with ID {id}.", request.Id);
 			await _bookRepository.DeleteBook(book);
 			return true;
 		}
