@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
-namespace LibraryAPI.DAL.Models
+﻿namespace LibraryAPI.DAL.Models
 {
 	public class Book
 	{
