@@ -20,7 +20,8 @@ namespace LibraryAuthApi.DAL.Repository
 
         public async Task<User?> GetUser(string username)
         {
-			return await _dBContext.Users.FirstOrDefaultAsync(u => u.UserName  == username);
+			return await _dBContext.Users.FirstOrDefaultAsync(u => 
+            u.UserName.ToLower()  == username.ToLower());
 		}
     }
 }

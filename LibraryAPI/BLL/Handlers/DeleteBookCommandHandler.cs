@@ -8,13 +8,16 @@ namespace LibraryAPI.BLL.Handlers
 {
 	public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, bool>
 	{
+		private readonly ILogger<DeleteBookCommand> _logger;
 		private readonly IBookRepository _bookRepository;
-		private readonly IMapper _mapper;
 
-		public DeleteBookCommandHandler(IBookRepository bookRepository, IMapper mapper)
+		public DeleteBookCommandHandler(
+			ILogger<DeleteBookCommand> logger,
+			IBookRepository bookRepository, 
+			IMapper mapper)
 		{
+			_logger = logger;
 			_bookRepository = bookRepository;
-			_mapper = mapper;
 		}
 
 		public async Task<bool> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
@@ -22,9 +25,10 @@ namespace LibraryAPI.BLL.Handlers
 			Book? book = await _bookRepository.GetBook(request.Id);
 			if (book == null)
 			{
-				throw new ArgumentNullException(nameof(request), "The book with this ID was not found");
+				throw new ArgumentNullException(nameof(request), "The book with such ID was not found");
 			}
 
+			_logger.LogError("Unable to delete a book with ID {id}.", request.Id);
 			await _bookRepository.DeleteBook(book);
 			return true;
 		}

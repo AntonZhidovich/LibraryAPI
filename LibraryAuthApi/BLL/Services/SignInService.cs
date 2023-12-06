@@ -8,21 +8,33 @@ namespace LibraryAuthApi.BLL.Services
 {
     public class SignInService : ISignInService
     {
+		private readonly ILogger<SignInService> _logger;
 		private readonly IUserRepository _repository;
 		private readonly ITokenBuilder _tokenBuilder;
 
-		public SignInService(IUserRepository repository, ITokenBuilder tokenBuilder)
+		public SignInService(
+			ILogger<SignInService> logger,
+			IUserRepository repository, 
+			ITokenBuilder tokenBuilder)
         {
+			this._logger = logger;
 			_repository = repository;
 			_tokenBuilder = tokenBuilder;
 		}
 
         public async Task<string> SignIn(UserLoginDTO userLogin)
         {
-			User? user = await _repository.GetUser(userLogin.UserName);
-			if (user == null || userLogin.Password != user.Password)
+			User? user = await _repository.GetUser(userLogin.UserName.Trim());
+			if (user == null)
 			{
-				throw new ArgumentException("Invalid username or password.");
+				_logger.LogError("The user with username: \"{username}\" was not found.", userLogin.UserName);
+				throw new ArgumentException("The user was not found.");
+			}
+
+			if(user.Password != userLogin.Password)
+			{
+				_logger.LogError("Ivalid password:  \"{password}\"", userLogin.Password);
+				throw new ArgumentException("Ivalid password.");
 			}
 
 			string token = _tokenBuilder.BuildToken(user);

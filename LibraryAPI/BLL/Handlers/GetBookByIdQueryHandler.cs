@@ -9,12 +9,16 @@ namespace LibraryAPI.BLL.Handlers
 {
 	public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, GetBookDTO>
 	{
-
+		private readonly ILogger<GetBookByIdQueryHandler> _logger;
 		private readonly IBookRepository _bookRepository;
 		private readonly IMapper _mapper;
 
-		public GetBookByIdQueryHandler(IBookRepository bookRepository, IMapper mapper)
+		public GetBookByIdQueryHandler(
+			ILogger<GetBookByIdQueryHandler> logger,
+			IBookRepository bookRepository, 
+			IMapper mapper)
 		{
+			_logger = logger;
 			_bookRepository = bookRepository;
 			_mapper = mapper;
 		}
@@ -26,7 +30,7 @@ namespace LibraryAPI.BLL.Handlers
 			{
 				return _mapper.Map<Book, GetBookDTO>(book);
 			}
-
+			_logger.LogError("Book with ID {id} was not found", request.Id);
 			throw new ArgumentException("Book with such ID not found.");
 		}
 	}
