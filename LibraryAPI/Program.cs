@@ -1,3 +1,4 @@
+using FluentValidation;
 using LibraryAPI.BLL.ExceptionHandlers;
 using LibraryAPI.BLL.Mapping;
 using LibraryAPI.DAL.Repository;
@@ -36,12 +37,16 @@ namespace LibraryAPI
 			builder.Services.AddDbContext<BookDBContext>(options
 				=> options.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnection")));
 			builder.Services.AddAutoMapper(typeof(BookMappingProfile));
+			builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 			builder.Services.AddMediatR(config =>
 			config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 			builder.Services.AddScoped<IBookRepository, BookRepository>();
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen(options => {
+				var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+				options.IncludeXmlComments(xmlPath);
 				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 				{
 					Scheme = "Bearer",

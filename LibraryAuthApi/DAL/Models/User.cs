@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryAuthApi.BLL.Models
+namespace LibraryAuthApi.DAL.Models
 {
 	public class User
 	{

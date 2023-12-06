@@ -1,4 +1,4 @@
-﻿using LibraryAuthApi.BLL.Models;
+﻿using LibraryAuthApi.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

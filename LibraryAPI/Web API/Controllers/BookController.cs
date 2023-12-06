@@ -18,6 +18,9 @@ namespace LibraryAPI.Web_API.Controllers
 			_mediator = mediator;
 		}
 
+		/// <summary>
+		/// Get all books
+		/// </summary>
 		[AllowAnonymous]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(IEnumerable<GetBookDTO>))]
@@ -28,6 +31,9 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(books);
 		}
 
+		/// <summary>
+		/// Get a book with a given ID
+		/// </summary>
 		[AllowAnonymous]
 		[HttpGet("{id}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
@@ -38,8 +44,11 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(book);
 		}
 
+		/// <summary>
+		/// Get a book with a given ISBN code
+		/// </summary>
 		[AllowAnonymous]
-		[HttpGet("/isbn/{isbn}")]
+		[HttpGet("isbn/{isbn}")]
 		[ProducesResponseType(200, Type = typeof(GetBookDTO))]
 		public async Task<IActionResult> GetBook(string isbn)
 		{
@@ -48,6 +57,9 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(book);
 		}
 
+		/// <summary>
+		/// Create a new book
+		/// </summary>
 		[Authorize]
 		[HttpPost]
 		[ProducesResponseType(200, Type = typeof(int))]
@@ -57,6 +69,9 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(await _mediator.Send(command));
 		}
 
+		/// <summary>
+		/// Update a book with a given ID
+		/// </summary>
 		[Authorize]
 		[HttpPut("{id}")]
 		[ProducesResponseType(200, Type = typeof(bool))]
@@ -66,6 +81,9 @@ namespace LibraryAPI.Web_API.Controllers
 			return Ok(await _mediator.Send(command));
 		}
 
+		/// <summary>
+		/// Delete a book with a given	ID
+		/// </summary>
 		[Authorize]
 		[HttpDelete("{id}")]
 		[ProducesResponseType(200, Type = typeof(bool))]

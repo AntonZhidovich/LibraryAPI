@@ -1,4 +1,4 @@
-﻿using LibraryAuthApi.BLL.Models;
+﻿using LibraryAuthApi.DAL.Models;
 
 namespace LibraryAuthApi.DAL.Repository
 {

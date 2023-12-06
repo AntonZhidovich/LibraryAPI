@@ -1,5 +1,5 @@
 ﻿using LibraryAuthApi.BLL.Data;
-using LibraryAuthApi.BLL.Models;
+using LibraryAuthApi.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAuthApi.DAL.Repository

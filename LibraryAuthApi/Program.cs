@@ -19,18 +19,10 @@ namespace LibraryAuthApi
 			builder.Services.AddScoped<ISignInService, SignInService>(); 
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
-			//builder.Services.AddSwaggerGen();
 			builder.Services.AddScoped<ITokenBuilder, TokenBuilder>();
 
 			var app = builder.Build();
 			app.UseExceptionHandler(opt => { });
-
-			//if (app.Environment.IsDevelopment())
-			//{
-			//	app.UseSwagger();
-			//	app.UseSwaggerUI();
-			//}
-
 			app.UseHttpsRedirection();
 			app.UseAuthorization();
 			app.MapControllers();

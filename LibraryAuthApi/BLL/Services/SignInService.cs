@@ -1,5 +1,4 @@
-﻿using LibraryAuthApi.BLL.Models;
-using LibraryAuthApi.DAL.Models;
+﻿using LibraryAuthApi.DAL.Models;
 using LibraryAuthApi.DAL.Repository;
 using LibraryAuthApi.DAL.Services;
 using Microsoft.EntityFrameworkCore.Migrations;

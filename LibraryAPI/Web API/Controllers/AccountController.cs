@@ -17,6 +17,9 @@ namespace LibraryAPI.Web_API.Controllers
 			_mediator = mediator;
 		}
 
+		/// <summary>
+		/// Sign in with a password
+		/// </summary>
 		[AllowAnonymous]
 		[HttpPost]
 		public async Task<IActionResult> Login(UserLoginDTO userDTO)
