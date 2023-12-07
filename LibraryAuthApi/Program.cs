@@ -1,13 +1,13 @@
 using LibraryAuthApi.BLL.Data;
-using LibraryAuthApi.BLL.ExceptionHandlers;
 using LibraryAuthApi.BLL.Services;
 using LibraryAuthApi.DAL.Repository;
 using LibraryAuthApi.DAL.Services;
+using LibraryAuthApi.Presentation.ExceptionHandlers;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAuthApi
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{

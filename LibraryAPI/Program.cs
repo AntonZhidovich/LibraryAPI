@@ -1,7 +1,7 @@
 using FluentValidation;
-using LibraryAPI.BLL.ExceptionHandlers;
 using LibraryAPI.BLL.Mapping;
 using LibraryAPI.DAL.Repository;
+using LibraryAPI.Presentation.ExceptionHandlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +11,7 @@ using System.Text;
 
 namespace LibraryAPI
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
