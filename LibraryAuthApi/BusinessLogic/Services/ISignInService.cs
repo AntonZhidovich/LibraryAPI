@@ -2,8 +2,8 @@
 
 namespace LibraryAuthApi.BLL.Services
 {
-	public interface ISignInService
-	{
-		public Task<string> SignIn(UserLoginDTO userLogin);
-	}
+    public interface ISignInService
+    {
+        public Task<string> SignIn(UserLoginDTO userLogin);
+    }
 }

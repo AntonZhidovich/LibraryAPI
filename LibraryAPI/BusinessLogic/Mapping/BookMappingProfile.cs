@@ -4,8 +4,8 @@ using LibraryAPI.DAL.Entities;
 
 namespace LibraryAPI.BLL.Mapping
 {
-	public class BookMappingProfile : Profile
-	{
+    public class BookMappingProfile : Profile
+    {
         public BookMappingProfile()
         {
             CreateMap<Book, GetBookDTO>();

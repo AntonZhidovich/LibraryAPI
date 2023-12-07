@@ -2,8 +2,8 @@
 
 namespace LibraryAuthApi.DAL.Services
 {
-	public interface ITokenBuilder
-	{
-		string BuildToken(User user);
-	}
+    public interface ITokenBuilder
+    {
+        string BuildToken(User user);
+    }
 }

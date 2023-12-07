@@ -3,9 +3,9 @@ using MediatR;
 
 namespace LibraryAPI.BLL.Queries
 {
-	public class GetBookByIdQuery : IRequest<GetBookDTO>
-	{
-		public int Id { get; set; }
+    public class GetBookByIdQuery : IRequest<GetBookDTO>
+    {
+        public int Id { get; set; }
 
         public GetBookByIdQuery(int id)
         {

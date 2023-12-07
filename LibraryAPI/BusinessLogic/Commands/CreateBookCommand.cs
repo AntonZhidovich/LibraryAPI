@@ -3,9 +3,9 @@ using MediatR;
 
 namespace LibraryAPI.BLL.Commands
 {
-	public class CreateBookCommand : IRequest
-	{
-		public CreateBookDTO BookDTO { get; set; }
+    public class CreateBookCommand : IRequest
+    {
+        public CreateBookDTO BookDTO { get; set; }
 
         public CreateBookCommand(CreateBookDTO bookDTO)
         {
