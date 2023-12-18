@@ -24,7 +24,7 @@ namespace LibraryAuthApi.BLL.Services
 
         public async Task<string> SignIn(UserLoginDTO userLogin)
         {
-            User user = await _repository.GetUser(userLogin.UserName.Trim());
+            User user = await _repository.GetUserAsync(userLogin.UserName.Trim());
 
             if(user.Password != userLogin.Password)
             {

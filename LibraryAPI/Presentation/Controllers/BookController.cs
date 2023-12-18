@@ -1,6 +1,7 @@
 ﻿using LibraryAPI.BLL.Commands;
 using LibraryAPI.BLL.Models;
 using LibraryAPI.BLL.Queries;
+using LibraryAPI.BusinessLogic.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,9 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<GetBookDTO>))]
-        public async Task<IActionResult> GetBooks()
+        public async Task<IActionResult> GetBooksAsync([FromQuery] BooksPageParameters parameters)
         {
-            var getBooksQuery = new GetBooksQuery();
+            var getBooksQuery = new GetBooksQuery(parameters);
             var books = await _mediator.Send(getBooksQuery);
             return Ok(books);
         }
@@ -37,7 +38,7 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(GetBookDTO))]
-        public async Task<IActionResult> GetBook(int id)
+        public async Task<IActionResult> GetBookAsync([FromRoute] int id)
         {
             var query = new GetBookByIdQuery(id);
             var book = await _mediator.Send(query);
@@ -50,7 +51,7 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpGet("isbn/{isbn}")]
         [ProducesResponseType(200, Type = typeof(GetBookDTO))]
-        public async Task<IActionResult> GetBook(string isbn)
+        public async Task<IActionResult> GetBookAsync([FromRoute] string isbn)
         {
             var query = new GetBookByIsbnQuery(isbn);
             var book = await _mediator.Send(query);
@@ -63,7 +64,7 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpPost]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> CreateBook(CreateBookDTO book)
+        public async Task<IActionResult> CreateBookAsync([FromBody] CreateBookDTO book)
         {
             var command = new CreateBookCommand(book);
             await _mediator.Send(command);
@@ -76,7 +77,7 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpPut("{id}")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> UpdateBook(int id, UpdateBookDTO updateBook)
+        public async Task<IActionResult> UpdateBookAsync([FromRoute] int id, [FromBody] UpdateBookDTO updateBook)
         {
             var command = new UpdateBookCommand(id, updateBook);
             await _mediator.Send(command);
@@ -89,7 +90,7 @@ namespace LibraryAPI.Presentation.ExceptionHandlers
         [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> DeleteBook(int id)
+        public async Task<IActionResult> DeleteBookAsync([FromRoute] int id)
         {
             var command = new DeleteBookCommand(id);
             await _mediator.Send(command);

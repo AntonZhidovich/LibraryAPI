@@ -37,7 +37,7 @@ namespace LibraryAPI.BLL.Handlers
             }
 
             Book book = _mapper.Map<CreateBookDTO, Book>(request.BookDTO);
-            await _bookRepository.CreateBook(book);
+            await _bookRepository.CreateBookAsync(book);
         }
     }
 }

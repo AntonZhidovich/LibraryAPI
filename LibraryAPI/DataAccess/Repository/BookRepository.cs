@@ -14,12 +14,16 @@ namespace LibraryAPI.DAL.Repository
             _dbContext = dBContext;
         }
 
-        public async Task<IEnumerable<Book>> GetBooks()
+        public async Task<IEnumerable<Book>> GetBooksAsync(int page, int pageSize)
         {
-            return await _dbContext.Books.OrderBy(b => b.DateOfReturn).ToListAsync();
+            return await _dbContext.Books
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .OrderBy(b => b.DateOfReturn)
+                .ToListAsync();
         }
 
-        public async Task<Book> GetBook(int id)
+        public async Task<Book> GetBookAsync(int id)
         {
             Book? book = await _dbContext.Books.FindAsync(id);
             if (book == null)
@@ -31,7 +35,7 @@ namespace LibraryAPI.DAL.Repository
             return book;
         }
 
-        public async Task<Book> GetBook(string ISBN)
+        public async Task<Book> GetBookAsync(string ISBN)
         {
             Book? book = await _dbContext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
             if (book == null)
@@ -43,27 +47,32 @@ namespace LibraryAPI.DAL.Repository
             return book;
         }
 
-        public async Task CreateBook(Book book)
+        public async Task CreateBookAsync(Book book)
         {
             await _dbContext.AddAsync(book);
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public async Task UpdateBook(Book book)
+        public async Task UpdateBookAsync(Book book)
         {
             _dbContext.Update(book);
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public async Task DeleteBook(Book book)
+        public async Task DeleteBookAsync(Book book)
         {
             _dbContext.Remove(book); 
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public int Count()
+        {
+            return _dbContext.Books.Count();
         }
     }
 }

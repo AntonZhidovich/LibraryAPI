@@ -15,7 +15,7 @@ namespace LibraryAuthApi.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserLoginDTO userDTO)
+        public async Task<IActionResult> SignInAsync([FromBody] UserLoginDTO userDTO)
         {
             string token = await _signInService.SignIn(userDTO);
             return Ok(token);

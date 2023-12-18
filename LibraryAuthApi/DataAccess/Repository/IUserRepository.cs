@@ -4,7 +4,7 @@ namespace LibraryAuthApi.DAL.Repository
 {
     public interface IUserRepository
     {
-        Task<User> GetUser(int id);
-        Task<User> GetUser(string username);
+        Task<User> GetUserAsync(int id);
+        Task<User> GetUserAsync(string username);
     }
 }

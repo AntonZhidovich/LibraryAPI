@@ -4,12 +4,13 @@ namespace LibraryAPI.DAL.Repository
 {
     public interface IBookRepository
     {
-        Task<IEnumerable<Book>> GetBooks();
-        Task<Book> GetBook(int id);
-        Task<Book> GetBook(string ISBN);
-        Task CreateBook(Book book);
-        Task UpdateBook(Book book);
-        Task DeleteBook(Book book);
-        Task SaveChanges();
+        Task<IEnumerable<Book>> GetBooksAsync(int page, int pageSize);
+        Task<Book> GetBookAsync(int id);
+        Task<Book> GetBookAsync(string ISBN);
+        Task CreateBookAsync(Book book);
+        Task UpdateBookAsync(Book book);
+        Task DeleteBookAsync(Book book);
+        Task SaveChangesAsync();
+        int Count();
     }
 }

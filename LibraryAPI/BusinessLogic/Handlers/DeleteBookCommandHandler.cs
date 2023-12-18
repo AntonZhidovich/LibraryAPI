@@ -22,14 +22,14 @@ namespace LibraryAPI.BLL.Handlers
 
         public async Task Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            Book? book = await _bookRepository.GetBook(request.Id);
+            Book? book = await _bookRepository.GetBookAsync(request.Id);
             if (book == null)
             {
                 _logger.LogError("Unable to delete a book with ID {id}.", request.Id);
                 throw new ArgumentNullException(nameof(request), "The book with such ID was not found");
             }
 
-            await _bookRepository.DeleteBook(book);
+            await _bookRepository.DeleteBookAsync(book);
         }
     }
 }

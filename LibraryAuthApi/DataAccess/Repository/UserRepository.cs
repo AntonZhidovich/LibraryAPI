@@ -15,7 +15,7 @@ namespace LibraryAuthApi.DAL.Repository
             _dBContext = dBContext;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUserAsync(int id)
         {
             var user = await _dBContext.Users.FindAsync(id);
             if (user == null)
@@ -27,7 +27,7 @@ namespace LibraryAuthApi.DAL.Repository
             return user;
         }
 
-        public async Task<User> GetUser(string username)
+        public async Task<User> GetUserAsync(string username)
         {
             var user = await _dBContext.Users.FirstOrDefaultAsync(u =>
             u.UserName.ToLower() == username.ToLower());

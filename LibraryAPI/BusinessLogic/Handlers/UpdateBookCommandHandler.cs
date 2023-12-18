@@ -40,7 +40,7 @@ namespace LibraryAPI.BLL.Handlers
             book.Id = request.Id;
             try
             {
-                await _bookRepository.UpdateBook(book);
+                await _bookRepository.UpdateBookAsync(book);
             }
             catch
             {
