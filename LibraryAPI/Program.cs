@@ -1,5 +1,6 @@
 using FluentValidation;
 using LibraryAPI.BLL.Mapping;
+using LibraryAPI.DAL.Data;
 using LibraryAPI.DAL.Repository;
 using LibraryAPI.Presentation.ExceptionHandlers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

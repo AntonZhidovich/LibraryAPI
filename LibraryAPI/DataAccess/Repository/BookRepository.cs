@@ -1,4 +1,5 @@
-﻿using LibraryAPI.DAL.Entities;
+﻿using LibraryAPI.DAL.Data;
+using LibraryAPI.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryAPI.DAL.Repository
@@ -23,27 +24,15 @@ namespace LibraryAPI.DAL.Repository
                 .ToListAsync();
         }
 
-        public async Task<Book> GetBookAsync(int id)
+        public async Task<Book?> GetBookAsync(int id)
         {
-            Book? book = await _dbContext.Books.FindAsync(id);
-            if (book == null)
-            {
-                _logger.LogError("Book with ID {id} was not found.", id);
-                throw new ArgumentException("Book with such ID not found.");
-            }
-
+            var book = await _dbContext.Books.FindAsync(id);
             return book;
         }
 
-        public async Task<Book> GetBookAsync(string ISBN)
+        public async Task<Book?> GetBookAsync(string ISBN)
         {
-            Book? book = await _dbContext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
-            if (book == null)
-            {
-                _logger.LogError("Book with ISBN {ISBN} was not found.", ISBN);
-                throw new ArgumentException("Book with such ISBN not found.");
-            }
-
+            var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
             return book;
         }
 

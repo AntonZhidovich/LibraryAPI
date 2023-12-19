@@ -9,12 +9,12 @@ namespace LibraryAPI.BLL.Handlers
 {
     public class GetBookByIsbnQueryHandler : IRequestHandler<GetBookByIsbnQuery, GetBookDTO>
     {
-        private readonly ILogger<GetBookByIsbnQuery> _logger;
+        private readonly ILogger<GetBookByIsbnQueryHandler> _logger;
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
 
         public GetBookByIsbnQueryHandler(
-            ILogger<GetBookByIsbnQuery> logger,
+            ILogger<GetBookByIsbnQueryHandler> logger,
             IBookRepository bookRepository, 
             IMapper mapper)
         {
@@ -26,6 +26,12 @@ namespace LibraryAPI.BLL.Handlers
         public async Task<GetBookDTO> Handle(GetBookByIsbnQuery request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.GetBookAsync(request.ISBN);
+            if (book == null)
+            {
+                _logger.LogError("Book with ISBN {ISBN} was not found.", request.ISBN);
+                throw new ArgumentException("Book with such ISBN not found.");
+            }
+
             return _mapper.Map<Book, GetBookDTO>(book);
         }
     }

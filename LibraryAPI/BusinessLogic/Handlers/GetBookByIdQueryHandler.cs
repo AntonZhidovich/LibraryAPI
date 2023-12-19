@@ -26,6 +26,12 @@ namespace LibraryAPI.BLL.Handlers
         public async Task<GetBookDTO> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.GetBookAsync(request.Id);
+            if (book == null)
+            {
+                _logger.LogError("Book with ID {id} was not found.", request.Id);
+                throw new ArgumentException("Book with such ID not found.");
+            }
+
             return _mapper.Map<Book, GetBookDTO>(book);
         }
     }
